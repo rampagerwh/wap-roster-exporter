@@ -427,7 +427,7 @@ function upgradeShouldBeIgnored(upgradeRoot) {
 }
 
 function createRosterView(roster) {
-	console.log(roster);
+	document.title = roster.name;
 
 	let root = createDiv();
 	root.id = "roster";
