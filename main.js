@@ -750,7 +750,8 @@ function createEquipmentView(unit) {
 		equipment[key] = armour.specialRules;
 	});
 
-	const sortedKeys = Object.keys(equipment).toSorted((lhs, rhs) => {
+
+	const sortedKeys = Object.keys(equipment).sort((lhs, rhs) => {
 		return (lhs + equipment[lhs]).length < (rhs + equipment[rhs]).length;
 	});
 	for (let i = 0; i < sortedKeys.length; i++) {
