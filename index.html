@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8" />
+  <title>WAP Roster Exporter</title>
+  <meta name="viewport" content="width=device-width" />
+  <link href="/main.css" rel="stylesheet" />
+</head>
+
+<body id="body">
+  <h1>WAP Roster Exporter</h1>
+  <div class="usage no-print">
+    <h4>Usage:</h4>
+    <div>
+      <div>
+        <ul>
+          <li>Use the "Load roster" button to load a roster.</li>
+          <li>Use the browser's print function (or share/print/save to pdf in mobile) to save/print the list.</li>
+          <li>Toggle units and/or section collapsing by clicking in their header.</li>
+          <li>Drag the ⇕ in the headers to reorder units/sections.</li>
+          <li>Use the checkboxes and the "Hide checked elements" toggle to hide/display elements.
+            You can use this functionality to generate a public version of your list without the
+            hidden elements, or just to hide elements in the list you don't want to print.</li>
+          <li>You can resize the comment section's text area to fill in space and avoid splitting units.</li>
+          <li>You can change the colors using the pickers on the right.</li>
+          <li>If you wish to avoid printing the URL of the webpage, time, page number, etc, play with
+            the settings in the printing dialog.</li>
+        </ul>
+        <label for="rosterInput">Load roster:</label>
+        <input type="file" id="rosterInput" accept=".ros,.rosz" onchange="handleFile();" />
+        <br />
+        <input type="checkbox" id="togglePrivateCheckbox" />
+        <label for="togglePrivateCheckbox">Hide checked elements</label>
+      </div>
+      <div>
+        <table>
+          <tr>
+            <td>
+              <label for="headersColor">Header color:</label>
+              <input type="color" id="headersColor" value="#add8e6" class="color-picker" />
+              <input type="button" id="headersColorReset" value="Reset" />
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for="sectionsColor">Sections color:</label>
+              <input type="color" id="sectionsColor" value="#e0ffff" class="color-picker" />
+              <input type="button" id="sectionsColorReset" value="Reset" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="toHitColor">Profile To Hit color:</label>
+              <input type="color" id="toHitColor" value="#bbbbff" class="color-picker" />
+              <input type="button" id="toHitColorReset" value="Reset" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="toWoundColor">Profile To Wound color:</label>
+              <input type="color" id="toWoundColor" value="#fff888" class="color-picker" />
+              <input type="button" id="toWoundColorReset" value="Reset" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="woundsColor">Profile Wounds color:</label>
+              <input type="color" id="woundsColor" value="#88dd88" class="color-picker" />
+              <input type="button" id="woundsColorReset" value="Reset" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="savesColor">Profiles Saves color:</label>
+              <input type="color" id="savesColor" value="#ff8888" class="color-picker" />
+              <input type="button" id="savesColorReset" value="Reset" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="otherStatsColor">Other stats table header color:</label>
+              <input type="color" id="otherStatsColor" value="#fffff0" class="color-picker" />
+              <input type="button" id="otherStatsColorReset" value="Reset" />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/javascript" src="/jszip.min.js"></script>
+  <script type="application/javascript" src="/main.js"></script>
+</body>
+
+</html>

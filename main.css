@@ -1,0 +1,374 @@
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  #test {
+    display: none;
+  }
+
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    margins: 100px;
+  }
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.usage {
+  max-width: 800px;
+}
+
+.usage>div {
+  display: flex;
+}
+
+.usage>div>div:first-child ul {
+  margin-top: 0;
+}
+
+.usage>div>div:first-child {
+  flex: 1;
+}
+
+.usage>div>div:last-child {
+  text-align: right;
+  padding-left: 50px;
+}
+
+.color-picker {
+  height: 22px;
+  width: 22px;
+}
+
+#togglePrivateCheckbox {
+  margin-top: 10px;
+}
+
+#roster {
+  max-width: 800px;
+}
+
+.wrong {
+  color: red;
+}
+
+.section {
+  break-inside: avoid;
+}
+
+.section-header {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  padding-left: 5px;
+  font-size: 80%;
+  background-color: lightcyan;
+  cursor: pointer;
+}
+
+div.section-header span:first-child,
+div.section-header span:nth-child(2) {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.section-content {
+  font-size: 70%;
+}
+
+.collapsed {
+  display: none !important;
+}
+
+.draggable {
+  cursor: grab;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/***************************************************************************************************
+* CATEGORIES POINTS
+***************************************************************************************************/
+
+.categories-pts .section-header {
+  font-size: 100%;
+  background-color: lightblue;
+  padding: 5px;
+}
+
+.categories-pts ul {
+  display: flex;
+  list-style: none;
+  font-size: 95%;
+  text-align: center;
+  margin: 10px 5px 5px 5px;
+}
+
+.categories-pts li {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+/***************************************************************************************************
+* UNIT 
+***************************************************************************************************/
+.unit {
+  margin-top: 35px;
+}
+
+/***************************************************************************************************
+* UNIT NAME
+***************************************************************************************************/
+
+.unit-name.section-header {
+  background-color: lightblue;
+  padding: 5px;
+  display: flex;
+  align-items: baseline;
+}
+
+div.unit-name {
+  font-size: 100%;
+  font-weight: bold;
+  break-after: avoid;
+}
+
+div.unit-name span:last-child {
+  flex: 1;
+  text-align: right;
+  font-weight: normal;
+  font-size: 80%;
+}
+
+/***************************************************************************************************
+* PROFILE
+***************************************************************************************************/
+.profile {
+  break-inside: avoid;
+}
+
+.profile table {
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+.profile table tr:nth-child(odd) {
+  font-weight: bold;
+}
+
+.profile table tr:nth-child(even) {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.profile table td {
+  width: 35px;
+}
+
+.profile table td[rowspan="2"] {
+  text-align: right;
+  width: 200px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-weight: initial;
+}
+
+.profile .to-hit {
+  background-color: #bbf;
+}
+
+.profile .to-wound {
+  background-color: #fff888;
+}
+
+.profile .saves {
+  background-color: #8d8;
+}
+
+.profile .wounds {
+  background-color: #f88;
+}
+
+.profile td.troop-type {
+  width: 150px;
+}
+
+/***************************************************************************************************
+* RULES & SELECTIONS
+***************************************************************************************************/
+
+.rules div.section-content,
+.selections div.section-content {
+  padding-left: 5px;
+}
+
+.rules ul,
+.selections ul {
+  list-style-type: '\21B3';
+  padding-left: 15px;
+  margin: 0;
+}
+
+.rules ul li,
+.selections ul li {
+  margin-top: 7px;
+}
+
+.rules ul li>div,
+.selections ul li>div {
+  position: relative;
+  left: 5px;
+}
+
+.rules span.bold,
+.selections span.bold {
+  font-weight: bold;
+}
+
+/***************************************************************************************************
+* EQUIPMENT
+***************************************************************************************************/
+.equipment {
+  break-inside: avoid;
+}
+
+.equipment div.section-content {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.equipment div.section-content>div {
+  margin: -0.5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 5px;
+  flex: 1 1 auto;
+}
+
+.equipment span {
+  font-weight: bold;
+}
+
+/***************************************************************************************************
+* SPELLS
+***************************************************************************************************/
+
+.spells div.section-content {
+  padding-left: 5px;
+}
+
+.spells .section-content>div {
+  margin-bottom: 5px;
+}
+
+.spells .section-content>div:last-child {
+  margin-bottom: 0;
+}
+
+.spells span {
+  font-weight: bold;
+}
+
+.spells .lore {
+  text-decoration: underline;
+}
+
+.spells ul {
+  margin: 0;
+  padding-left: 25px;
+  list-style-type: '\1F7C6';
+}
+
+.spells ul li {
+  margin-top: 5px;
+}
+
+.spells ul li>div {
+  position: relative;
+  left: 5px;
+}
+
+.spells span span {
+  font-weight: bold;
+}
+
+/***************************************************************************************************
+* OTHER STATS
+***************************************************************************************************/
+.other-stats table {
+  border-collapse: collapse;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.other-stats tr:first-child>th {
+  background-color: ivory;
+}
+
+.other-stats th,
+.other-stats td {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding-left: 5px;
+  padding-right: 5px;
+  white-space: pre-wrap;
+}
+
+/***************************************************************************************************
+* COMMENTS
+***************************************************************************************************/
+.comments textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+/***************************************************************************************************
+* RULES DESCRIPTIONS
+***************************************************************************************************/
+div.rule-descriptions {
+  margin-top: 35px;
+}
+
+.rule-descriptions .section-header {
+  background-color: lightblue;
+  padding: 5px;
+  font-size: 100%;
+  font-weight: bold;
+}
+
+.rule-descriptions .section-content {
+  font-size: 75%;
+  list-style-type: '\1F7C6';
+  padding-left: 20px;
+}
+
+.rule-descriptions li {
+  padding-left: 5px;
+  margin-bottom: 5px;
+}
+
+.rule-descriptions li:last-child {
+  margin-bottom: 0;
+}
+
+.rule-descriptions span {
+  font-weight: bold;
+}
