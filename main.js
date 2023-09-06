@@ -4,11 +4,8 @@ const SECTION = 1;
 const toggleClassName = "toggle no-print";
 const toggleTooltip = "Mark as private\nPrivate elements can be toggled with the button at the top\
  to print public versions of the list"
-
-var globals = {
-	dragType: UNIT,
-	draggedElement: null
-}
+const moveUpTooltip = "Move this element up"
+const moveDownTooltip = "Move this element down";
 
 function toggleClass(element, className) {
 	if (element.classList.contains(className)) {
@@ -73,8 +70,8 @@ function createCheckbox() {
 function createSectionHeader(text, collapsed = false) {
 	let headerNode = createDiv("section-header");
 
-	let dragIconNode = createElementWithText("span", "⇕", "no-print draggable");
-	headerNode.appendChild(dragIconNode);
+	let reorderButtonsContainer = createReorderButtons();
+	headerNode.appendChild(reorderButtonsContainer);
 
 	let arrowNode = createElementWithText("span", (collapsed) ? "▷" : "▽", "arrow no-print");
 	headerNode.appendChild(arrowNode);
@@ -86,6 +83,20 @@ function createSectionHeader(text, collapsed = false) {
 	headerNode.appendChild(textNode);
 
 	return headerNode;
+}
+
+function createReorderButtons() {
+	let root = createDiv("no-print reorder-buttons-container");
+
+	let moveUpIconNode = createElementWithText("span", "⯅", "move-up-button")
+	moveUpIconNode.title = moveUpTooltip;
+	root.appendChild(moveUpIconNode);
+
+	let moveDownIconNode = createElementWithText("span", "⯆", "move-down-button");
+	moveDownIconNode.title = moveDownTooltip;
+	root.appendChild(moveDownIconNode);
+
+	return root;
 }
 
 function handleFile() {
@@ -457,7 +468,7 @@ function createCategoriesPts(roster) {
 	let root = createDiv("categories-pts");
 
 	let title = createSectionHeader("Points per category:")
-	title.removeChild(title.firstChild); // Remove draggable
+	title.removeChild(title.firstChild); // Remove reorder buttons
 	root.appendChild(title);
 
 	let pts = {
@@ -1106,8 +1117,7 @@ function createRuleDescriptionsView(ruleDescriptions) {
 function addInputCallbacks(root) {
 	addHeaderToggles(root);
 
-	let draggables = root.querySelectorAll(":scope .draggable");
-	draggables.forEach(addDraggableToElement);
+	addReorderButtonCallbacks(root);
 
 	addCheckboxCallbacks(root);
 	addTogglePrivateCallback(root);
@@ -1130,93 +1140,80 @@ function addHeaderToggles(root) {
 	});
 }
 
-function addDraggableToElement(draggable) {
-	draggable.setAttribute("draggable", true);
+function addReorderButtonCallbacks(root) {
+	let moveUpButtons = root.querySelectorAll(":scope .section-header .move-up-button");
+	moveUpButtons.forEach(button => {
+		if (button.parentElement.parentElement.parentElement.classList.contains("unit")) {
+			button.onclick = (event) => {
+				event.stopPropagation();
 
-	function findRootAndDragType(element) {
-		let root = draggable;
-		let dragType = UNIT;
-		let found = false;
-		while (root && !found) {
-			root = root.parentElement;
-			if (root.classList.contains("unit")) {
-				dragType = UNIT;
-				found = true;
-			} else if (root.classList.contains("section")) {
-				dragType = SECTION;
-				found = true;
-			}
-		}
-
-		return [root, dragType]
-	}
-
-	let [root, _] = findRootAndDragType(draggable);
-
-	root.ondragstart = event => {
-		let [element, dragType] = findRootAndDragType(event.target);
-		globals.draggedElement = element;
-		globals.dragType = dragType;
-
-		event.dataTransfer.effectAllowed = "move";
-		event.dataTransfer.setData("text/plain", null);
-		event.dataTransfer.setDragImage(element, 25, 25);
-
-		event.stopPropagation();
-	};
-
-
-	root.ondragover = event => {
-		function findRoot(element, dragType) {
-			let root = element.parentElement;
-
-			let desiredClass = (dragType === UNIT) ? "unit" : "section";
-			while (root && !root.classList.contains(desiredClass)) {
-				root = root.parentElement;
-			}
-
-			return root;
-		}
-
-		function isBefore(lhs, rhs) {
-			if (rhs.parentNode === lhs.parentNode) {
-				for (let current = lhs.previousSibling;
-					current;
-					current = current.previousSibling) {
-					if (current === rhs) {
-						return true
-					}
+				const units = root.querySelectorAll(":scope > .unit");
+				let unitRoot = button.parentElement.parentElement.parentElement;
+				if (units[0] === unitRoot) {
+					return;
 				}
-			}
 
-			return false;
+				let previousSibling = unitRoot.previousSibling;
+				unitRoot.parentElement.removeChild(unitRoot);
+				previousSibling.insertAdjacentElement("beforebegin", unitRoot);
+			};
+		} else {
+			button.onclick = (event) => {
+				event.stopPropagation();
+
+				let unitRoot = button.parentElement;
+				while (!unitRoot.classList.contains("unit")) {
+					unitRoot = unitRoot.parentElement;
+				}
+				const sections = unitRoot.querySelectorAll(":scope > div > .section");
+				let sectionRoot = button.parentElement.parentElement.parentElement;
+				if (sections[0] === sectionRoot) {
+					return;
+				}
+
+				let previousSibling = sectionRoot.previousSibling;
+				sectionRoot.parentElement.removeChild(sectionRoot);
+				previousSibling.insertAdjacentElement("beforebegin", sectionRoot);
+			};
 		}
+	});
 
-		event.dataTransfer.dropEffect = "move";
+	let moveDownButtons = root.querySelectorAll(":scope .section-header .move-down-button");
+	moveDownButtons.forEach(button => {
+		if (button.parentElement.parentElement.parentElement.classList.contains("unit")) {
+			button.onclick = (event) => {
+				event.stopPropagation();
 
-		let dragRoot = findRoot(event.target, globals.dragType);
-		let draggedElement = globals.draggedElement;
+				const units = root.querySelectorAll(":scope > .unit");
+				let unitRoot = button.parentElement.parentElement.parentElement;
+				if (units[units.length - 1] === unitRoot) {
+					return;
+				}
 
-		// Prevent dragging sections across units
-		let dragAllowed = dragRoot && dragRoot !== draggedElement;
-		if (dragAllowed && globals.dragType == SECTION) {
-			dragAllowed = findRoot(dragRoot, UNIT) === findRoot(draggedElement, UNIT);
+				let nextSibling = unitRoot.nextSibling;
+				unitRoot.parentElement.removeChild(unitRoot);
+				nextSibling.insertAdjacentElement("afterend", unitRoot);
+			};
+		} else {
+			button.onclick = (event) => {
+				event.stopPropagation();
+
+				let unitRoot = button.parentElement;
+				while (!unitRoot.classList.contains("unit")) {
+					unitRoot = unitRoot.parentElement;
+				}
+				const sections = unitRoot.querySelectorAll(":scope > div > .section");
+				let sectionRoot = button.parentElement.parentElement.parentElement;
+				if (sections[sections.length - 1] === sectionRoot) {
+					return;
+				}
+
+				let nextSibling = sectionRoot.nextSibling;
+				sectionRoot.parentElement.removeChild(sectionRoot);
+				nextSibling.insertAdjacentElement("afterend", sectionRoot);
+			};
 		}
-
-		if (dragAllowed) {
-			let position = (isBefore(draggedElement, dragRoot)) ? "beforebegin" : "afterend";
-			draggedElement.parentElement.removeChild(draggedElement);
-			dragRoot.insertAdjacentElement(position, draggedElement);
-		}
-
-		event.preventDefault();
-	};
-
-	root.ondragend = event => {
-		globals.draggedElement = null;
-
-		event.stopPropagation();
-	}
+	});
 }
 
 function addCheckboxCallbacks(root) {

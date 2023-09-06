@@ -63,22 +63,6 @@ body {
   break-inside: avoid;
 }
 
-.section-header {
-  margin-top: 15px;
-  margin-bottom: 5px;
-  font-weight: bold;
-  padding-left: 5px;
-  font-size: 80%;
-  background-color: lightcyan;
-  cursor: pointer;
-}
-
-div.section-header span:first-child,
-div.section-header span:nth-child(2) {
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
 .section-content {
   font-size: 70%;
 }
@@ -93,6 +77,42 @@ div.section-header span:nth-child(2) {
 
 .hidden {
   display: none !important;
+}
+
+/***************************************************************************************************
+* HEADERS
+***************************************************************************************************/
+
+.section-header {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  padding-left: 5px;
+  font-size: 80%;
+  background-color: lightcyan;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+div.section-header span:first-child,
+div.section-header span:nth-child(2) {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.section-header .reorder-buttons-container {
+  display: flex;
+  flex-flow: column;
+}
+
+div.section-header>.arrow {
+  margin-top: -2px;
+}
+
+.section-header .reorder-buttons-container span.move-up-button,
+.section-header .reorder-buttons-container span.move-down-button {
+  font-size: 100%;
 }
 
 /***************************************************************************************************
@@ -132,8 +152,6 @@ div.section-header span:nth-child(2) {
 .unit-name.section-header {
   background-color: lightblue;
   padding: 5px;
-  display: flex;
-  align-items: baseline;
 }
 
 div.unit-name {
