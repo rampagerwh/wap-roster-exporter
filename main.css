@@ -12,9 +12,13 @@
     -webkit-print-color-adjust: exact;
   }
 
+  .hidden {
+    display: none !important;
+  }
+
   @page {
     margins: 100px;
-  }
+  }  
 }
 
 body {
@@ -76,7 +80,7 @@ body {
 }
 
 .hidden {
-  display: none !important;
+  opacity: 0.5 !important;
 }
 
 /***************************************************************************************************

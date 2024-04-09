@@ -1235,9 +1235,9 @@ function addTogglePrivateCallback(root) {
 }
 
 function updateHiddenElements(root) {
-	function updateHidden(element) {
-		let button = document.getElementById("togglePrivateCheckbox");
-		if (button.checked) {
+	function updateHidden(checkbox, element) {
+		let hideElementsButton = document.getElementById("togglePrivateCheckbox");
+		if (checkbox.checked && hideElementsButton.checked) {
 			element.classList.add("hidden");
 		} else {
 			element.classList.remove("hidden");
@@ -1245,54 +1245,54 @@ function updateHiddenElements(root) {
 	}
 
 	// headers (including units)
-	let headersToggles = root.querySelectorAll(":scope .section-header > input:checked");
+	let headersToggles = root.querySelectorAll(":scope .section-header input[type='checkbox']");
 	headersToggles.forEach(toggle => {
-		updateHidden(toggle.parentElement.parentElement);
+		updateHidden(toggle, toggle.parentElement.parentElement);
 	});
 
 	// profiles
-	let profilesToggles = root.querySelectorAll(":scope .profile input:checked");
+	let profilesToggles = root.querySelectorAll(":scope .profile input[type='checkbox']");
 	profilesToggles.forEach(toggle => {
-		updateHidden(toggle.parentElement.parentElement);
-		updateHidden(toggle.parentElement.parentElement.nextSibling);
+		updateHidden(toggle, toggle.parentElement.parentElement);
+		updateHidden(toggle, toggle.parentElement.parentElement.nextSibling);
 	})
 
 	// selections & rules
-	let selectionsToggles = root.querySelectorAll(":scope .selections > .section-content input:checked")
+	let selectionsToggles = root.querySelectorAll(":scope .selections > .section-content input[type='checkbox']")
 	selectionsToggles.forEach(toggle => {
-		updateHidden(toggle.parentElement);
+		updateHidden(toggle, toggle.parentElement);
 	});
-	let rulestoggles = root.querySelectorAll(":scope .rules > .section-content input:checked")
+	let rulestoggles = root.querySelectorAll(":scope .rules > .section-content input[type='checkbox']")
 	rulestoggles.forEach(toggle => {
-		updateHidden(toggle.parentElement);
+		updateHidden(toggle, toggle.parentElement);
 	});
 
 	// equipment
-	let equipmentToggles = root.querySelectorAll(":scope .equipment input:checked");
+	let equipmentToggles = root.querySelectorAll(":scope .equipment input[type='checkbox']");
 	equipmentToggles.forEach(toggle => {
-		updateHidden(toggle.parentElement);
+		updateHidden(toggle, toggle.parentElement);
 	});
 
 	// spells
-	let spellsToggles = root.querySelectorAll(":scope .spells input:checked");
+	let spellsToggles = root.querySelectorAll(":scope .spells input[type='checkbox']");
 	spellsToggles.forEach(toggle => {
-		updateHidden(toggle.parentElement.parentElement);
+		updateHidden(toggle, toggle.parentElement.parentElement);
 	});
 
 	// other stats
-	let otherStatsTableToggles = root.querySelectorAll(":scope .other-stats th > input:checked");
+	let otherStatsTableToggles = root.querySelectorAll(":scope .other-stats th > input[type='checkbox']");
 	otherStatsTableToggles.forEach(toggle => {
-		updateHidden(toggle.parentElement.parentElement.parentElement);
+		updateHidden(toggle, toggle.parentElement.parentElement.parentElement);
 	});
-	let otherStatsRowToggles = root.querySelectorAll(":scope .other-stats tr input:checked");
+	let otherStatsRowToggles = root.querySelectorAll(":scope .other-stats tr input[type='checkbox']");
 	otherStatsRowToggles.forEach(toggle => {
-		updateHidden(toggle.parentElement.parentElement);
+		updateHidden(toggle, toggle.parentElement.parentElement);
 	});
 
 	// rule descriptions
-	let rulesDescriptionsToggles = root.querySelectorAll(":scope .rule-descriptions input:checked");
+	let rulesDescriptionsToggles = root.querySelectorAll(":scope .rule-descriptions input[type='checkbox']");
 	rulesDescriptionsToggles.forEach(toggle => {
-		updateHidden(toggle.parentElement);
+		updateHidden(toggle, toggle.parentElement);
 	});
 }
 
