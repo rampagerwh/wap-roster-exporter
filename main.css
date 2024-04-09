@@ -164,7 +164,7 @@ div.unit-name {
   break-after: avoid;
 }
 
-div.unit-name span:last-child {
+div.unit-name > span:last-child {
   flex: 1;
   text-align: right;
   font-weight: normal;

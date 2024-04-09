@@ -88,11 +88,11 @@ function createSectionHeader(text, collapsed = false) {
 function createReorderButtons() {
 	let root = createDiv("no-print reorder-buttons-container");
 
-	let moveUpIconNode = createElementWithText("span", "⯅", "move-up-button")
+	let moveUpIconNode = createElementWithText("span", "⬆", "move-up-button")
 	moveUpIconNode.title = moveUpTooltip;
 	root.appendChild(moveUpIconNode);
 
-	let moveDownIconNode = createElementWithText("span", "⯆", "move-down-button");
+	let moveDownIconNode = createElementWithText("span", "⬇", "move-down-button");
 	moveDownIconNode.title = moveDownTooltip;
 	root.appendChild(moveDownIconNode);
 
